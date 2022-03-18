@@ -45,10 +45,9 @@ class Clock extends Component {
       <div className="clock">
         <h4>Time: {this.state.date.toLocaleTimeString()} <span onClick={this.props.toggleClockMethod}>X</span>
         </h4>
-
       </div>
 
-    )
+    );
   }
 
 
