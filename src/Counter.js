@@ -5,6 +5,7 @@ import './Counter.css';
 
 import Display from './Display';
 import ButtonsPanel from './ButtonsPanel';
+import Clock from './Clock';
 
 class Counter extends Component {
 
@@ -12,7 +13,8 @@ class Counter extends Component {
         super(props);
 
         this.state = {
-            counterValue: this.props.initValue
+            counterValue: this.props.initValue,
+            showClock: true,
         };
 
         // binding needed when this.changeValue is a ES5 method
@@ -47,21 +49,40 @@ class Counter extends Component {
 
     }
 
+
+    toggleClock = () => {
+        this.setState((prevState) => {
+            return({
+                showClock: !prevState.showClock
+            });
+        })
+    }
+
     render() {
+
+        let clockElement = '';
+
+
+        if (this.state.showClock) {
+            clockElement =  <Clock
+            toggleClockMethod={this.toggleClock}/>;
+        } else {
+            clockElement = <span onClick={this.toggleClock}
+            className="show-clock">show clock</span>;
+        }
 
         return ( <
             div className = "counter" >
             Counter:
             <
             Display displayValue = {
-                this.state.counterValue
-            }
-            />  <
-            ButtonsPanel buttonMethod = {
-                this.changeValue
-            }
-            /> <
-            /div>
+                this.state.counterValue}/>
+
+            <ButtonsPanel buttonMethod = {
+                this.changeValue}/>
+                {clockElement}
+               
+                </div>
         );
     }
 }
